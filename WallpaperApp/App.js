@@ -1,49 +1,88 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Dimensions
+} from "react-native";
+import FastImage from "react-native-fast-image";
+import axios from "axios";
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+const { width, height } = Dimensions.get("window");
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const App = () => {
+  const [isLoading, setLoading] = React.useState(true);
+  const [images, setImages] = React.useState([]);
 
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
+  React.useEffect(() => {
+    loadWallpapers();
+  }, []);
+
+  const loadWallpapers = async () => {
+    let res = null;
+    try {
+      res = await axios.get(
+        "https://api.unsplash.com/photos/random?count=30&client_id=beebb77da5b99592f8fb5d43c04ece4620a007d8ccfe6c1df4eccda14e9574fc"
+      );
+    } catch (error) {
+      console.log(error);
+      res = null;
+    }
+
+    if (res) {
+      setImages(res.data);
+    }
+    setLoading(false);
+  };
+
+  const renderItem = image => {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+      <View style = { { flex: 1 } }>
+        <View style = { { flex: 1, ...StyleSheet.absoluteFill, justifyContent: 'center', alignItems: 'center' } }>
+          <ActivityIndicator size = 'large' color = 'grey' />
+        </View>
+        <View key={image.urls.regular} style={{ width, height }}>
+          <FastImage
+            source={{ uri: image.urls.regular }}
+            style={{ flex: 1, width: null, height: null }}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+        </View>
       </View>
     );
-  }
-}
+  };
+
+  return (
+    <>
+      {isLoading ? (
+        <View style={styles.container}>
+          {isLoading && <ActivityIndicator size="large" color="grey" />}
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <FlatList
+            horizontal
+            pagingEnabled
+            data={images}
+            renderItem={item => renderItem(item.item)}
+            keyExtractor={item => item.id}
+          />
+        </View>
+      )}
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    backgroundColor: "#000",
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });
+
+export default App;
