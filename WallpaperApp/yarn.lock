@@ -4868,10 +4868,10 @@ react-is@^16.8.1, react-is@^16.8.3, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
-react-native-fast-image@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-6.0.1.tgz#677d60761bc487af18d830f46ab9cdd75b865a6c"
-  integrity sha512-jzgFAZrrWQXsnyiLpKgwkHva6YzD24/ZQG65en7kx8YWmS2H14Tpj5J6h0KQZhV3KxBSeCQbKE+vh99bSpT0/Q==
+react-native-fast-image@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.3.0.tgz#5821fac5e8759b3a87628600522eb72c579b0b9f"
+  integrity sha512-b0uhUEXKuIWY1WFai30i4LR99kF8OKoOjl6Yqcnc/bydkuE1r7oj0eUNifa7jwD4Pdpeff+uGMrEz27UMap0yQ==
 
 react-native@0.59.8:
   version "0.59.8"
